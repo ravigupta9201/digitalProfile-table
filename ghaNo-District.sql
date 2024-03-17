@@ -1,5 +1,5 @@
 
-create table tbl_District
+create table tbl_DistrictList
 (
 DId                int not null identity(1,1) primary key,	
 OrderNo             int not null,
@@ -8,15 +8,18 @@ DistrictName          nvarchar(254),
 ProvinceName          nvarchar(254),
 Status              bit not null,
 
-CreateBy             int not null constraint fk_District_CreateBy foreign key references tbl_User(UserId),
-ModifyBy                 int null constraint fk_District_ModifyBy foreign key references tbl_User(UserId),
+CreateBy             int not null constraint fk_DistrictList_CreateBy foreign key references tbl_User(UserId),
+ModifyBy                 int null constraint fk_DistrictList_ModifyBy foreign key references tbl_User(UserId),
 UpdateLogDateTime        datetime,
 LogDateTime              datetime not null default current_timestamp
 )
  
 GO
 
-INSERT INTO tbl_District (Code, DistrictName, ProvinceName , Status , CreateBy, UpdateLogDateTime)
+
+
+
+INSERT INTO tbl_DistrictList (Code, DistrictName, ProvinceName , Status , CreateBy, UpdateLogDateTime)
 VALUES 
 (1, 'DS001' , N'ताप्लेजुङ', N'प्रदेश नं. १',1, 1, GETDATE()),
 (2, 'DS002' , N'पाँचथर', N'प्रदेश नं. १', 1 , 1, GETDATE()),
