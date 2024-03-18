@@ -1,0 +1,273 @@
+﻿@{
+
+    ViewBag.Title = "";
+    Layout = null;
+}
+@RenderPage("~/Views/Global/_GlobalLayout.cshtml")
+
+<script src="~/jslib/Setup/Country.js"></script>
+
+<div ng-app="myApp" ng-controller="CountryController" ng-init="LoadData()">
+    <div>
+        <div class="container-fluid">
+            <div class="page-content-wrapper">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div>
+
+                            @*GenderDescription  start here*@
+                            <div>
+                                <div class="">
+                                    <div id="Country-section">
+                                        <div class="card p-2 mt-2">
+                                            <div class="">
+                                                <header class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="clearfix">
+                                                            <form class="form-inline mb-1">
+                                                                <div class="input-group input-group-sm mr-sm-2">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text cstm">Show </span>
+                                                                    </div>
+                                                                    <select class="form-select border-left-0 border-right-0" ng-model="perPage.Country">
+                                                                        <option ng-value="pp.value" ng-repeat="pp in perPageColl" ng-selected="pp.value==perPage.District">{{pp.text}}</option>
+                                                                    </select>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text bg-white"><small>entries</small></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="input-group input-group-sm table-search-filed">
+                                                                    <input class="form-control"
+                                                                           type="search"
+                                                                           placeholder="Search"
+                                                                           aria-label="Search"
+                                                                           ng-model="searchData.Country" />
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-default border-left-0"
+                                                                                type="submit">
+                                                                            <i class="fas fa-search"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end col-md-8 -->
+                                                    <div class="col-md-5 text-right">
+                                                        <div class="dropdown dnld-file"
+                                                             data-placement="top"
+                                                             title="Download File">
+                                                            <button class="btn btn-secondary btn-light btn-sm dropdown-toggle"
+                                                                    type="button"
+                                                                    id="dropdownMenuButton"
+                                                                    data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                <i class="fas fa-download"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end"
+                                                                 aria-labelledby="dropdownMenuButton">
+                                                                <span class="dropdown-item">Choose an option:</span>
+                                                                <a class="dropdown-item wait"
+                                                                   export-excel
+                                                                   table-id="'#TollDetail'"
+                                                                   sheet-name="'TollDetailList'">
+                                                                    <img src="~/wwwroot/dynamic-erp/images/flaticons/excel.png"
+                                                                         class="img-fluid exports-icon"
+                                                                         alt="Excel image" />
+                                                                    Excel
+                                                                </a>
+                                                                <a class="dropdown-item wait"
+                                                                   onClick="$('#TollDetail').tableExport({type:'csv',escape:'false'});">
+                                                                    <img src="~/wwwroot/dynamic-erp/images/flaticons/csv.png"
+                                                                         class="img-fluid exports-icon"
+                                                                         alt="Excel image" />
+                                                                    CSV
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <a print-tbl
+                                                           table-id="'#TollDetail'"
+                                                           href="#"
+                                                           class="btn btn-secondary btn-light btn-sm"
+                                                           data-placement="top"
+                                                           title="Print">
+                                                            <i class="fas fa-print"></i>
+                                                        </a>
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-success"
+                                                                id="add-Country-change"
+                                                                ng-click="ClearCountry()"
+                                                                style="
+                                                                min-width: 110px;
+                                                                font-size: 12px;
+                                                                background-color: #2460b9;
+                                                                border: none;
+                                                              ">
+                                                            <i class="fas fa-plus w-t"></i> नयाँ टोल थप्नुहोस
+                                                        </button>
+                                                    </div>
+                                                </header>
+                                            </div>
+
+                                            <div>
+                                                <div class="table-scroll-x-y mb-1 table-container"
+                                                     style="
+                                                    max-height: calc(100vh - 12rem) !important;
+                                                    overflow: auto;
+                                                  ">
+                                                    <table id="TollDetail"
+                                                           class="main-table table table-sm table-bordered bg-white">
+                                                        <thead class=" ">
+                                                            <tr>
+                                                                <th style="
+                                                                    width: 50px;
+                                                                    background-color: #ececec !important;
+                                                                  ">
+                                                                    क्र. स.
+                                                                </th>
+                                                                <th style="
+                                                                    width: 150px;
+                                                                    background-color: #ececec !important;
+                                                                  ">
+                                                                    कोड
+                                                                </th>
+                                                                <th style="
+                                                                    width: 150px;
+                                                                    background-color: #ececec !important;
+                                                                  ">
+                                                                    देश
+                                                                </th>
+                                                                <th style="
+                                                                    width: 90px;
+                                                                    background-color: #ececec !important;
+                                                                  ">
+                                                                    स्थिति
+                                                                </th>
+
+                                                                <th style="
+                                                                    width: 90px;
+                                                                    background-color: #ececec !important;
+                                                                  ">
+                                                                    कार्य
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr dir-paginate="C in CountryList | filter:searchData.Country | itemsPerPage: perPage.Country" current-page="currentPages.Country" pagination-id="CountryPagination">
+                                                                <td>{{$index+1}}</td>
+                                                                <td>{{C.Code}}</td>
+                                                                <td>{{C.CountryName}}</td>
+                                                                <td>{{C.Status}}</td>
+
+                                                                <td>
+                                                                    <a class="p-1"
+                                                                       style="cursor: pointer">
+                                                                        <i class="fas fa-edit text-info"
+                                                                           style="color: #2460b9 !important" ng-click="getCountryById(C)"></i>
+                                                                    </a>
+                                                                    <a class="p-1"
+                                                                       style="cursor: pointer">
+                                                                        <i class="fas fa-trash-alt text-danger" ng-click="DelCountryById(C)"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <footer class="row align-items-center">
+                                                <div class="col-md-12">
+                                                    <dir-pagination-controls pagination-id="CountryPagination" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+                                                </div>
+                                            </footer>
+                                        </div>
+                                    </div>
+
+                                    <!-- form area starts -->
+                                    <div id="Country-form">
+                                        <div>
+                                            <div class="card mt-2">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>क्र. स.</label>
+                                                                <input type="number"
+                                                                       class="form-control form-control-sm"
+                                                                       ng-model="newCountry.OrderNo" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>कोड</label>
+                                                                <input type="text"
+                                                                       class="form-control form-control-sm"
+                                                                       ng-model="newCountry.Code" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>देश</label>
+                                                                <input type="text"
+                                                                       class="form-control form-control-sm"
+                                                                       ng-model="newCountry.CountryName" />
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>स्थिति</label>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" ng-value="true" ng-model="newCountry.Status" value="option2">
+                                                                    <label class="form-check-label mr-3" for="exampleRadios1">
+                                                                        सक्रिय &nbsp; &nbsp;
+                                                                    </label>
+                                                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" ng-value="false" ng-model="newCountry.Status" value="option2">
+                                                                    <label class="form-check-label" for="exampleRadios2">
+                                                                        निष्क्रिय
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="time-label">
+                                                        <span class="d-block border-0 p-3 text-center">
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-secondary load"
+                                                                    id="back-to-list-Country"
+                                                                    style="min-width: 110px">
+                                                                फिर्ता सुचीमा जानु
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-danger load"
+                                                                    style="min-width: 110px"
+                                                                    ng-click="ClearCountry()">
+                                                                रिसेट गर्नुहोस्
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-info load"
+                                                                    style="min-width: 110px; background-color: #2460b9"
+                                                                    ng-click="SaveUpdateCountry()">
+                                                                रेकर्ड सेभ गर्नुहोस
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div> <!-- container-fluid -->
+    </div>
+</div>
