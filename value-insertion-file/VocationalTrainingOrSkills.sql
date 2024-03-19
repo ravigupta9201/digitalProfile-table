@@ -6,6 +6,7 @@ OrderNo                     int not null,
 Code                        nvarchar(254),
 TrainingSubjectName         nvarchar(254), 
 TrainingAreasName           nvarchar(254), 
+
 Status              bit not null,
 
 CreateBy             int not null constraint fk_VocationalTrainingOrSkill_CreateBy foreign key references tbl_User(UserId),

@@ -19,7 +19,7 @@ GO
 
 
 
-INSERT INTO tbl_DistrictList (Code, DistrictName, ProvinceName , Status , CreateBy, UpdateLogDateTime)
+INSERT INTO tbl_DistrictList (OrderNo, Code, DistrictName, ProvinceName , Status , CreateBy, UpdateLogDateTime)
 VALUES 
 (1, 'DS001' , N'ताप्लेजुङ', N'प्रदेश नं. १',1, 1, GETDATE()),
 (2, 'DS002' , N'पाँचथर', N'प्रदेश नं. १', 1 , 1, GETDATE()),
